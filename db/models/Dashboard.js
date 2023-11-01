@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Dashboard.associate = function (models) {
     Dashboard.hasMany(models.user, { foreignKey: "dashboardId" })
-    Dashboard.hasMany(models.widget, { foreignKey: "dashboardId" })
+    Dashboard.hasMany(models.dashboardWidget, { foreignKey: "dashboardId" })
   }
   return Dashboard
 }

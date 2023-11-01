@@ -1,12 +1,12 @@
 const express = require("express")
 const router = express.Router()
-const { widget } = require("../db/models")
+const { dashboardWidget, feedback } = require("../db/models")
 
 router.use(logger)
 
 router.get("/get", async (req, res) => {
   try {
-    const data = await widget.findOne({
+    const data = await dashboardWidget.findOne({
       where: {
         id: req.query?.id,
       },
@@ -18,14 +18,15 @@ router.get("/get", async (req, res) => {
   }
 })
 
-router.post("/", (req, res) => {
-  const isValid = false
-  if (isValid) {
-    users.push({ firstName: req.body.firstName })
-    res.redirect(`/users/${users.length - 1}`)
-  } else {
-    console.log("Error")
-    res.render("users/new", { firstName: req.body.firstName })
+router.post("/feedback/new", async (req, res) => {
+  try {
+    await feedback.create({
+      feedback: JSON.stringify(req.body.feedback),
+      widgetId: req.body.widgetId,
+    })
+    res.status(201).json({ message: "Resource created successfully" })
+  } catch (error) {
+    console.log(error)
   }
 })
 
@@ -35,3 +36,20 @@ function logger(req, res, next) {
 }
 
 module.exports = router
+// try {
+//   const data = await dashboardWidget.findOne({
+//     where: {
+//       id: "b303f712-1b7c-4165-a054-b733be36c996",
+//     },
+//     include: [
+//       {
+//         model: feedback,
+//         attributes: ["feedback", "id"],
+//       },
+//     ],
+//   })
+//   if (!data) throw "No data found."
+//   res.send(data)
+// } catch (err) {
+//   res.status(404).send(err)
+// }
