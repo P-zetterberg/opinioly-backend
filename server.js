@@ -7,8 +7,12 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
 const widgetRouter = require("./routes/widget")
+const authRouter = require("./routes/auth")
+
 app.use(cors())
 app.use("/widget", widgetRouter)
+app.use("/auth", authRouter)
+
 const db = require("./db/models")
 const {
   user,
@@ -18,10 +22,10 @@ const {
   analysis,
 } = require("./db/models")
 
-db.sequelize.sync({ force: false }).then(async (req) => {
-  dashboard.create({
-    subscription: false,
-  })
+db.sequelize.sync({ alter: true, force: false }).then(async (req) => {
+  // dashboard.create({
+  //   subscription: false,
+  // })
 
   // await user.create({
   //   name: "John smithuser",
