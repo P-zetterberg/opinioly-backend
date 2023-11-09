@@ -18,6 +18,21 @@ router.get("/get", async (req, res) => {
   }
 })
 
+router.get("/ping", async (req, res) => {
+  try {
+    // const data = await dashboardWidget.findOne({
+    //   where: {
+    //     id: req.query?.id,
+    //   },
+    // })
+    let data = ["kekekeke", "kakakakak", "kikikikik"]
+    if (!data) throw "No data found."
+    res.send(data)
+  } catch (err) {
+    res.status(404).send(err)
+  }
+})
+
 router.post("/feedback/new", async (req, res) => {
   try {
     await feedback.create({
