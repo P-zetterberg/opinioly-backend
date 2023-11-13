@@ -1,7 +1,7 @@
 const express = require("express")
 const router = express.Router()
 const { dashboardWidget, feedback } = require("../db/models")
-
+router.use(express.static("public/widget"))
 router.use(logger)
 
 router.get("/get", async (req, res) => {
