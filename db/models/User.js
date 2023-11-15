@@ -13,13 +13,6 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: true,
       },
     },
-    lastname: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
-    },
     active: {
       type: DataTypes.BOOLEAN,
       defaultValue: true,

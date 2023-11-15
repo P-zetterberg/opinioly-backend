@@ -1,10 +1,12 @@
 const express = require("express")
 const app = express()
 const cors = require("cors")
+const dotenv = require("dotenv")
 
 app.use(express.static("public"))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
+dotenv.config()
 
 const widgetRouter = require("./routes/widget")
 const authRouter = require("./routes/auth")
