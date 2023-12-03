@@ -3,9 +3,6 @@ const router = express.Router()
 const { createClient } = require("@supabase/supabase-js")
 const { user, dashboard } = require("../db/models")
 
-const supabaseUrl = "https://foebhsyjevotvveomyop.supabase.co"
-const supabaseKey =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZvZWJoc3lqZXZvdHZ2ZW9teW9wIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTczNzA2ODYsImV4cCI6MjAxMjk0NjY4Nn0.scxVcnN2Q1Gx2cK38o-zn4sdUAy21Z63pRwaphbVLO0"
 const supabase = createClient(
   process.env.SUPABASE_URL,
   process.env.SUPABASE_ANON_KEY
@@ -27,7 +24,7 @@ router.post("/login", async (req, res) => {
 
 router.post("/register", async (req, res) => {
   async function signUpNewUser() {
-    const { email, password, firstname, lastname } = req.body
+    const { email, password } = req.body
     const { data, error } = await supabase.auth.signUp({
       email: email,
       password: password,
@@ -43,8 +40,6 @@ router.post("/register", async (req, res) => {
         .then(async (newRecord) => {
           let id = newRecord.id
           await user.create({
-            firstname: firstname,
-            lastname: lastname,
             dashboardId: id,
             id: data.user.id,
           })
@@ -53,6 +48,22 @@ router.post("/register", async (req, res) => {
     res.status(status).send(resData)
   }
   signUpNewUser()
+})
+
+router.get("/get/:id", async (req, res) => {
+  try {
+    const { id } = req.params
+    if (id == "undefined") throw new Error("No id provided")
+    const data = await user.findOne({
+      where: {
+        id: id,
+      },
+    })
+    if (!data) throw "No data found."
+    res.status(200).send(data)
+  } catch (error) {
+    console.log(error)
+  }
 })
 
 module.exports = router

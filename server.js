@@ -10,10 +10,12 @@ dotenv.config()
 
 const widgetRouter = require("./routes/widget")
 const authRouter = require("./routes/auth")
+const platformRouter = require("./routes/dashboard")
 
 app.use(cors())
 app.use("/widget", widgetRouter)
 app.use("/auth", authRouter)
+app.use("/dashboard", platformRouter)
 
 const db = require("./db/models")
 const {

@@ -6,13 +6,6 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       primaryKey: true,
     },
-    firstname: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
-    },
     active: {
       type: DataTypes.BOOLEAN,
       defaultValue: true,
