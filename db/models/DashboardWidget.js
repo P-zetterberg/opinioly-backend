@@ -7,12 +7,6 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: false,
     },
-    public_id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
-      allowNull: true,
-      autoIncrement: false,
-    },
     data: {
       type: DataTypes.JSONB,
       validate: {
@@ -20,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     styles: {
-      type: DataTypes.JSONB,
+      type: DataTypes.STRING,
     },
     name: {
       type: DataTypes.STRING,

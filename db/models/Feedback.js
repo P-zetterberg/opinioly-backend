@@ -6,6 +6,10 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: true,
       },
     },
+    widgetId: {
+      type: DataTypes.UUID,
+      allowNull: false,
+    },
   })
 
   return Feedback

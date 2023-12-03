@@ -4,12 +4,11 @@ const { dashboardWidget, feedback } = require("../db/models")
 router.use(express.static("public/widget"))
 router.use(logger)
 
-//Uses public id
 router.get("/get", async (req, res) => {
   try {
     const data = await dashboardWidget.findOne({
       where: {
-        public_id: req.query?.id,
+        id: req.query?.id,
       },
     })
     if (!data) throw "No data found."
@@ -19,11 +18,10 @@ router.get("/get", async (req, res) => {
   }
 })
 
-//Uses public id
 router.post("/feedback/new", async (req, res) => {
   try {
     await feedback.create({
-      feedback: JSON.stringify(req.body.feedback),
+      feedback: req.body.feedback,
       widgetId: req.body.widgetId,
     })
     res.status(201).json({ message: "Resource created successfully" })
